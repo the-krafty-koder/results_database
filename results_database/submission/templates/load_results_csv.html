@@ -1,0 +1,143 @@
+{% extends "load_results.html" %}
+{% load static %}
+{% block styles %}
+  <title> Load Document</title>
+  <link rel="stylesheet" type="text/css" href="{% static "css/load_csv.css" %}">
+  <link rel="stylesheet" type="text/css" href="{% static "mdb/css/mdb.min.css" %}" >
+{% endblock %}
+{% block body %}
+  <div class="ui grid">
+    <div class="row">
+      <div class="three wide column"></div>
+      <div class="ten wide column">
+        <div class="ui segment">
+          <form class="ui form" method="post" id="form" enctype="multipart/form-data">
+            <div class="ui eight column centered grid">
+
+                <img style="margin-bottom:1em;" src="{% static "images/pale-uploading.png" %}" alt="Upload Image">
+                <div class="row" style="margin-left:2em;">
+                  <div class="five wide column">
+                    <div class="field">
+                      <label>{{ form.classes.label_tag }}</label>
+                      <div class="fields">
+                        <div class="thirteen wide field">
+                          <div class="fieldWrapper">
+                            {{ form.classes.errors }}
+                            {{ form.classes }}
+                            {% if form.classes.help_text %}
+                            <p class="help">{{ form.classes.help_text|safe }}</p>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="five wide column">
+                    <div class="field">
+                      <label>{{ form.streams.label_tag }}</label>
+                      <div class="fields">
+                        <div class="thirteen wide field">
+                          <div class="fieldWrapper">
+                            {{ form.streams.errors }}
+                            {{ form.streams }}
+                            {% if form.streams.help_text %}
+                            <p class="help">{{ form.streams.help_text|safe }}</p>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="five wide column" >
+                    <div class="field">
+                      <label>{{ form.exam_name.label_tag }}</label>
+                      <div class="fields">
+                        <div class="thirteen wide field">
+                          <div class="fieldWrapper">
+                            {{ form.exam_name.errors }}
+                            {{ form.exam_name }}
+                            {% if form.exam_name.help_text %}
+                            <p class="help">{{ form.exam_name.help_text|safe }}</p>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="five wide column" >
+                    <div class="field">
+                      <label>{{ form.exam_year.label_tag }}</label>
+                      <div class="fields">
+                        <div class="thirteen wide field">
+                          <div class="fieldWrapper">
+                            {{ form.exam_year.errors }}
+                            {{ form.exam_year }}
+                            {% if form.exam_year.help_text %}
+                            <p class="help">{{ form.exam_year.help_text|safe }}</p>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="five wide column" >
+                    <div class="field">
+                      <label>{{ form.exam_term.label_tag }}</label>
+                      <div class="fields">
+                        <div class="thirteen wide field">
+                          <div class="fieldWrapper">
+                            {{ form.exam_term.errors }}
+                            {{ form.exam_term }}
+                            {% if form.exam_term.help_text %}
+                            <p class="help">{{ form.exam_term.help_text|safe }}</p>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="five wide column" >
+                    <div class="field">
+                      <label>{{ form.exam_cat.label_tag }}</label>
+                      <div class="fields">
+                        <div class="thirteen wide field">
+                          <div class="fieldWrapper">
+                            {{ form.exam_cat.errors }}
+                            {{ form.exam_cat }}
+                            {% if form.exam_cat.help_text %}
+                            <p class="help">{{ form.exam_cat.help_text|safe }}</p>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="four wide column">
+
+                  </div>
+                </div>
+                <div class="fieldWrapper">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                      <div class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">{{ form.file }}</div>
+                      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+                  </div>
+                </div>
+                <button class="ui button">Submit</button>
+            </div>
+            {% csrf_token %}
+          </form>
+          {% if uploaded_file_url %}
+            <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+          {% endif %}
+        </div>
+      </div>
+      <div class="three wide column"></div>
+    </div>
+  </div>
+
+{% endblock %}

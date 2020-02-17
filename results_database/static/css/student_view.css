@@ -1,0 +1,17 @@
+.container{
+  margin-top:4em;
+}
+.image{
+  padding-left:2em;
+}
+#student_name{
+  margin-left: 0.5em;
+}
+#statistic-card{
+  padding:1em;
+}
+
+#display_student{
+  width:82%;
+  margin-left: 18%;
+}

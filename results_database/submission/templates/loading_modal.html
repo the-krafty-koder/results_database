@@ -1,0 +1,53 @@
+{% extends "load_results.html" %}
+{% load static %}
+{% block scripts %}
+    <script defer src="{% static "loading_modal.js" %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static "css/loading_modal.css" %}">
+{% endblock %}
+
+{% block body %}
+
+  <button type="button" class="ui button" data-toggle="modal" data-target="#exampleModalCenter">
+    Launch demo modal
+  </button>
+  <button type="button" class="ui button" data-toggle="modal" data-target="#myModalCenter">
+    Launch ticker
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" >Submission in Progress..</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body loader-container" style="height:10em;">
+          <div class="ui segment " style="height:100%;">
+            <div class="ui active dimmer">
+              <div class="ui big text loader">Loading</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="myModalCenter" tabindex="-1" role="dialog" aria-labelledby="myModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" >Submitted</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+        </div>
+        <div class="modal-body loader-container text-center" style="height:10em;">
+          <i class="fas fa-check-circle fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

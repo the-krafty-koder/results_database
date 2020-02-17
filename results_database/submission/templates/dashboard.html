@@ -1,0 +1,338 @@
+{% extends "load_results.html" %}
+{% load static %}
+{% block styles %}
+  <title>Student View</title>
+  <link rel="stylesheet" type="text/css" href="{% static "css/dashboard.css" %}">
+
+{% endblock %}
+
+{% block body %}
+  <div class="ui grid " id="container-grid">
+    <div class="row">
+      {% for key,value in institution.items %}
+      <div class="four wide column">
+        <div class="ui raised violet card">
+          <div class="content">
+            <div class="header">
+              {{ value }}
+            </div>
+            <div class="description">
+              {{ key }}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="row">
+      <div class="left floated six wide column">
+        <div class="ui segment">
+          <div class="ui secindary">
+            <h3>Manage Subject</h3>
+            <p>Manage the subjects taken in school</p>
+          </div>
+
+
+          <div class="ui blue buttons" id="create-view">
+            <button class="ui button" data-toggle="modal" data-target="#create-subject-modal">
+              Create
+            </button>
+            <button class="ui button" data-toggle="modal" data-target="#subject-modal">
+              View
+            </button>
+          </div>
+
+      </div>
+    </div>
+    <div class="right floated six wide column">
+      <div class="ui segment">
+        <div class="ui secindary">
+          <h3>Manage Classes</h3>
+          <p>Manage the classes in school</p>
+        </div>
+
+
+        <div class="ui blue buttons" id="create-view">
+          <button class="ui button" data-toggle="modal" data-target="#create-class-modal">
+            Create
+          </button>
+          <button type="button" class="ui button" data-toggle="modal" data-target="#class-modal">
+            View
+          </button>
+        </div>
+
+    </div>
+  </div>
+  <div class="modal fade" id="create-subject-modal" tabindex="-1" role="dialog" aria-labelledby="create-subject-modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="subject-modalTitle">Create</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="ui form" method="post">
+            <h4 class="ui dividing header">Create Subject</h4>
+            {% for field in subject_form %}
+              <div class="field">
+                <div class="fieldWrapper">
+                  <label>{{ field.label }}</label>
+                  <div class="fields">
+                    <div class="twelve wide field">
+                      {{ field }}
+                    </div>
+                  </div>
+                  {{ field.errors }}
+
+                  {% if field.help_text %}
+                  <p class="help">{{ field.help_text|safe }}</p>
+                  {% endif %}
+                </div>
+
+              </div>
+            {% endfor %}
+            <button class="ui button" tabindex="0">Submit</button>
+            {% csrf_token %}
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="subject-modal" tabindex="-1" role="dialog" aria-labelledby="subject-modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="subject-modalTitle">Subject List</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="ui list">
+              {% for subject in subject_list %}
+              <div class="item">
+                <div class="left floated five column">
+                  <h4>{{ subject.name }}</h4>
+                  <p>{{ subject.code }}</p>
+                </div>
+                <div class="right floated five column">
+                  <div class="ui buttons" id="create-view">
+                    <button class="ui blue button">
+                      Edit
+                    </button>
+                    <button class="ui red button">
+                      Delete
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+              {% endfor %}
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="create-class-modal" tabindex="-1" role="dialog" aria-labelledby="create-class-modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="create-classModalTitle">Create Class</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="ui form" method="post">
+            <h4 class="ui dividing header">Create Class</h4>
+            {% for field in class_form %}
+              <div class="field">
+                <div class="fieldWrapper">
+                  <label>{{ field.label }}</label>
+                  <div class="fields">
+                    <div class="twelve wide field">
+                      {{ field }}
+                    </div>
+                  </div>
+                  {{ field.errors }}
+
+                  {% if field.help_text %}
+                  <p class="help">{{ field.help_text|safe }}</p>
+                  {% endif %}
+                </div>
+
+              </div>
+            {% endfor %}
+            <button class="ui button" tabindex="0">Create</button>
+            {% csrf_token %}
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="class-modal" tabindex="-1" role="dialog" aria-labelledby="class-modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="classModalTitle">Class List</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="ui list">
+              {% for class in class_list %}
+                <div class="item">
+                  <div class="left floated five column">
+
+                    <h4>{{ class.class_name }}</h4>
+
+                    <p> Streams</p>
+
+                  </div>
+                  <div class="right floated five column">
+                    <div class="ui buttons" id="create-view">
+                      <button class="ui blue button" data-toggle="modal" data-target="#edit-class-{{ class.class_name|cut:' ' }}-modal">
+                        Edit
+                      </button>
+                      <button class="ui red button">
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="modal fade" id="edit-class-{{ class.class_name|cut:' ' }}-modal" tabindex="-1" role="dialog" aria-labelledby="edit-class-modalTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="edit-class-modalTitle">Edit Class</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form class="ui form" method="post">
+                          <h4 class="ui dividing header"></h4>
+                          {% for field in edit_form %}
+                            <div class="field">
+                              <div class="fieldWrapper">
+                                <label>{{ field.label }}</label>
+                                <div class="fields">
+                                  <div class="twelve wide field">
+                                    {{ field }}
+                                  </div>
+                                </div>
+                                {{ field.errors }}
+
+                                {% if field.help_text %}
+                                <p class="help">{{ field.help_text|safe }}</p>
+                                {% endif %}
+                              </div>
+                            </div>
+                          {% endfor %}
+                          {% if class.streams %}
+                          {% for stream in class.streams %}
+                          <div class="ui list">
+                                <div class="item">
+                                  <div class="left floated five column">
+
+                                    <h4>{{ stream.stream_name }}</h4>
+
+                                    <p> Students </p>
+
+                                  </div>
+                                  <div class="right floated five column">
+                                    <div class="ui buttons" id="create-view">
+                                      <button class="ui blue button">
+                                        <a href="{% url 'edit_stream'  class  stream.stream_name %}"> Edit</a>
+                                      </button>
+                                      <button class="ui red button">
+                                        Delete
+                                      </button>
+                                    </div>
+                                  </div>
+
+                                </div>
+                          </div>
+                          {% endfor %}
+                          {% endif %}
+                          <button class="ui blue button right aligned" data-toggle="modal" data-target="#add-stream-modal">
+                            Add Streams
+                          </button>
+
+                          <button class="ui button" tabindex="0">Submit</button>
+                          {% csrf_token %}
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="add-stream-modal" tabindex="-1" role="dialog" aria-labelledby="add-stream-modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="create-classModalTitle">Add Stream</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="ui form" method="post">
+            <h4 class="ui dividing header"></h4>
+            {% for field in stream_form %}
+              <div class="field">
+                <div class="fieldWrapper">
+                  <label>{{ field.label }}</label>
+                  <div class="fields">
+                    <div class="twelve wide field">
+                      {{ field }}
+                    </div>
+                  </div>
+                  {{ field.errors }}
+
+                  {% if field.help_text %}
+                  <p class="help">{{ field.help_text|safe }}</p>
+                  {% endif %}
+                </div>
+
+              </div>
+            {% endfor %}
+            <button class="ui blue button" tabindex="0">Add Stream</button>
+            {% csrf_token %}
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+{% endblock %}

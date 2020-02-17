@@ -1,0 +1,83 @@
+{% extends "load_results.html" %}
+{% load plotly_dash %}
+{% load static %}
+{% block styles %}
+  <title>Add Students</title>
+  <link rel="stylesheet" type="text/css" href="{% static "css/add_students.css" %}">
+
+{% endblock %}
+{% block body %}
+
+  <div class="ui grid" style="margin-top:3em;margin-left:3em;">
+    <div class="row">
+      <div class="two wide column" style="margin-left:0.5em;">
+        <img class="ui small circular image" src="{% static "images/student.png" %}" style="border:solid 5px #7386D5;">
+      </div>
+      <div class="four wide column">
+        <div class="ui" id="student_name" style="padding-top:1em;">
+          <p><h1>{{ student.student_name }}</h1></p>
+          <p><h3>{{ form }} {{ stream }}</h3></p>
+        </div>
+      </div>
+      <div class="four wide column right floated">
+        <button class="ui button">
+        </button>
+      </div>
+
+
+
+    </div>
+    <div class="ui raised blue segment" id="selection-drop">
+      <form class="ui form">
+        <h4 class="ui dividing header" style="">Student Information</h4>
+        <div class="field">
+          <label>Name</label>
+          <div class="fields">
+            <div class="four wide field">
+              <input type="text" name="student[first-name]" placeholder="{{ student.fname }}">
+            </div>
+            <div class="four wide field">
+              <input type="text" name="student[last-name]" placeholder="{{ student.lname }}">
+            </div>
+          </div>
+          <div class="field">
+            <label>Admission Number</label>
+            <div class="fields">
+              <div class="twelve wide field">
+                <input type="text" name="student[adm]" placeholder="{{ student.admission }}">
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label> KCPE </label>
+            <div class="fields">
+              <div class="twelve wide field">
+                <input type="text" name="student[kcpe]" placeholder="{{ student.kcpe }}">
+              </div>
+            </div>
+          </div>
+        </div>
+        <h4 class="ui dividing header">Contact Information</h4>
+        <div class="field">
+          <label>Phone Number</label>
+          <div class="fields">
+            <div class="twelve wide field">
+              <input type="text" name="shipping[phone]" placeholder="{{ student.contact }}">
+            </div>
+          </div>
+
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <div class="fields">
+            <div class="twelve wide field">
+              <input type="text" name="student[email]" placeholder="{{ student.email }}">
+            </div>
+          </div>
+
+        </div>
+        <div class="ui button" tabindex="0">Submit</div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "load_results.html" %}
+{% load plotly_dash %}
+{% load static %}
+{% block styles %}
+  <title>Stream View</title>
+  <link rel="stylesheet" type="text/css" href="{% static "css/stream_view.css" %}">
+{% endblock %}
+{% block body %}
+  <div class="container">
+    <div class="ui grid">
+      <div class="row">
+          <div class="eleven wide column" >
+            <div class="ui grid" id="selection-drop">
+              <div class="row">
+                <div class="ui label massive" id="student_name">
+                  <h2 style="font-weight:bold"> {{ class }}  {{ stream.stream_name }}</h2>
+                </div>
+              </div>
+              <div class="row">
+                <div class="three wide column">
+                  <i class="fas fa-chalkboard-teacher fa-6x"></i>
+                </div>
+                <div class="four wide column">
+                  <div class="ui basic label large" id="student_name" style="margin-top:10%;">
+                    Teacher Name
+                  </div>
+                  <h3 style="margin-top:1em;padding-left:0.3em;"> {{ stream.class_teacher }} </h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="sixteen wide column" style="">
+                  <div class="ui segment fixed" id="selection-drop" style="height:15em !important;margin-top:-1em;margin-left:-0.3em;">
+                    {% plotly_app name="lineplot1" ratio=0.3%}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="five wide column">
+            <div class="ui grid" id="selection-drop">
+              <div class="row">
+                <div class="two wide column">
+                  <div class="ui vertical divider">
+                  </div>
+                </div>
+                <div class="fourteen wide column">
+                  <div class="ui segment" id="stream-stats">
+                    <div class="ui horizontal five statistics">
+                      <div class="statistic">
+                        <div class="value">
+                          40
+                        </div>
+                        <div class="label">
+                          Students
+                        </div>
+                      </div>
+                      <div class="statistic">
+                        <div class="value">
+                          9
+                        </div>
+                        <div class="label">
+                          Exams Done
+                        </div>
+                      </div>
+                      <div class="statistic">
+                        <div class="value">
+                          600.5
+                        </div>
+                        <div class="label">
+                          Mean
+                        </div>
+                      </div>
+                      <div class="statistic">
+                        <div class="value">
+                          C+
+                        </div>
+                        <div class="label">
+                          Mean Grade
+                        </div>
+                      </div>
+                      <div class="statistic">
+                        <div class="value">
+                          40%
+                        </div>
+                        <div class="label">
+                          Pass Percentage
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+      </div>
+
+      <div class="row">
+        <div class="sixteen wide column">
+          <div class="ui card" id="selection-drop" id="display_table">
+            {% plotly_app name="streamview_table" ratio=0.67%}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}

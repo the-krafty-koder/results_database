@@ -1,0 +1,48 @@
+{% extends "load_results.html" %}
+{% load static %}
+{% block styles %}
+  <title>View Classes</title>
+  <link rel="stylesheet" type="text/css" href="{% static "css/load_list.css" %}">
+
+{% endblock %}
+
+{% block body %}
+
+  <div class="ui grid">
+    <div class="row">
+      <div class="three wide column">
+      </div>
+      <div class="ten wide column">
+        <div id="accordion" style="margin-top:7em;">
+
+          {% for class in classes %}
+          <div class="ui card" id="selection-drop">
+            <div class="content">
+              <div class="header">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#{{ class.class_name|cut:" " }}" aria-expanded="false" aria-controls="{{ class.class_name|cut:" " }}">
+                  {{ class.class_name }}
+                </button>
+              </div>
+              <div class="description">
+                <div id="{{ class.class_name|cut:" " }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="ui list list-container" style="">
+                    {% for stream in class.streams %}
+                    <div class="item ui " style="padding-top:0.5em;padding-bottom:0.5em;margin-right:2em;">
+                        <button class="content ui button" style="padding:1em;background:#7386D5;" id="selection-drop">
+                            <a href="{% url 'load_stream' class.class_name stream.stream_name %}" style="color:black;font-weight:bold;">{{ stream.stream_name }}</a>
+                        </button>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

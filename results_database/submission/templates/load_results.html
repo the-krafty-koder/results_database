@@ -1,0 +1,270 @@
+{% load plotly_dash %}
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+    {% block styles %}
+        <title>Upload Results</title>
+    {% endblock %}
+    <!-- Bootstrap CSS CDN -->
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static "bootstrap/bootstrap/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static "semantic/semantic/semantic.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}">
+    <!-- Scrollbar Custom CSS -->
+
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+              <span class="dash-user-icon text-center" >
+                  <i class="fas fa-school fa-3x school "></i>
+
+              </span>
+              <h3 class="text-center" style="margin-bottom:2em;">Institution Name</h3>
+
+            </div>
+
+            <ul class="ui list components">
+                <p class="text-center"><i class="fas fa-columns icon"></i> C.Panel </p>
+                <li class="item">
+                    <a href="{% url 'load_dashboard' %}">
+                      <i class="fas fa-address-card icon "></i> Dashboard
+                    </a>
+                </li>
+
+                <li class="item">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-arrow-circle-up icon "></i>Upload</a>
+                    <ul class="collapse ui list list-unstyled" id="homeSubmenu">
+                        <li class="item">
+                            <a href="{% url 'load_csv' %}"><i class="fas fa-file-alt icon"></i>Document</a>
+                        </li>
+                        <li class="item">
+                            <a href="{% url 'load_results' %}"><i class="fas fa-hand-paper icon "></i>Manual</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="item">
+                    <a href="{% url 'load_students' %}"><i class="fas fa-binoculars icon "></i>View</a>
+                </li>
+                <li class="item">
+                    <a href="{% url 'load_class_list' %}">
+                      <i class="fas fa-users-cog icon "></i>Students Database
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="{% url 'load_class_list' %}">
+                      <i class="fas fa-users-cog icon "></i>Analytics
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <div class="ui fixed menu">
+              <div class="right menu">
+
+                <a class="item" id="sidebarCollapse" >
+                    <i class="fas fa-align-left" style="margin-right:1em;"></i>
+                    <span>Menu</span>
+                </a>
+              </div>
+            </div>
+
+            {% block body %}
+            <form class="ui form mainform segment" action="" method="post" id="stats-holder">
+              <div class="ui grid">
+
+                <div class="row">
+                  <div class="two wide column"></div>
+                  <div class="twelve wide column">
+                    <div class="ui fixed card" id="drop-container">
+                      <div class="content">
+                        <div class="ui grid">
+                          <div class="row" style="margin-left:2em;">
+                            <div class="five wide column">
+                              <div class="field">
+                                <label>{{ form.classes.label_tag }}</label>
+                                <div class="fields">
+                                  <div class="thirteen wide field">
+                                    <div class="fieldWrapper">
+                                      {{ form.classes.errors }}
+                                      {{ form.classes }}
+                                      {% if form.classes.help_text %}
+                                      <p class="help">{{ form.classes.help_text|safe }}</p>
+                                      {% endif %}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="five wide column">
+                              <div class="field">
+                                <label>{{ form.streams.label_tag }}</label>
+                                <div class="fields">
+                                  <div class="thirteen wide field">
+                                    <div class="fieldWrapper">
+                                      {{ form.streams.errors }}
+                                      {{ form.streams }}
+                                      {% if form.streams.help_text %}
+                                      <p class="help">{{ form.streams.help_text|safe }}</p>
+                                      {% endif %}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="five wide column" >
+                              <div class="field">
+                                <label>{{ form.exam_name.label_tag }}</label>
+                                <div class="fields">
+                                  <div class="thirteen wide field">
+                                    <div class="fieldWrapper">
+                                      {{ form.exam_name.errors }}
+                                      {{ form.exam_name }}
+                                      {% if form.exam_name.help_text %}
+                                      <p class="help">{{ form.exam_name.help_text|safe }}</p>
+                                      {% endif %}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="five wide column" >
+                              <div class="field">
+                                <label>{{ form.exam_year.label_tag }}</label>
+                                <div class="fields">
+                                  <div class="thirteen wide field">
+                                    <div class="fieldWrapper">
+                                      {{ form.exam_year.errors }}
+                                      {{ form.exam_year }}
+                                      {% if form.exam_year.help_text %}
+                                      <p class="help">{{ form.exam_year.help_text|safe }}</p>
+                                      {% endif %}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="five wide column" >
+                              <div class="field">
+                                <label>{{ form.exam_term.label_tag }}</label>
+                                <div class="fields">
+                                  <div class="thirteen wide field">
+                                    <div class="fieldWrapper">
+                                      {{ form.exam_term.errors }}
+                                      {{ form.exam_term }}
+                                      {% if form.exam_term.help_text %}
+                                      <p class="help">{{ form.exam_term.help_text|safe }}</p>
+                                      {% endif %}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="five wide column" >
+                              <div class="field">
+                                <label>{{ form.exam_cat.label_tag }}</label>
+                                <div class="fields">
+                                  <div class="thirteen wide field">
+                                    <div class="fieldWrapper">
+                                      {{ form.exam_cat.errors }}
+                                      {{ form.exam_cat }}
+                                      {% if form.exam_cat.help_text %}
+                                      <p class="help">{{ form.exam_cat.help_text|safe }}</p>
+                                      {% endif %}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="four wide column">
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="two wide column"></div>
+              </div>
+
+              <div class="ui grid">
+                <div class="row">
+                  <div class="one wide column">
+
+                  </div>
+                  <div class="fourteen wide column">
+                    <div class="ui card" id="selection-drop">
+                      {% plotly_app name="submission_table" ratio=0.57%}
+                    </div>
+                    <button class="ui button" id="selection-drop" style="background:#7386D5;">Submit</button>
+                  </div>
+                  <div class="one wide column">
+
+                  </div>
+                </div>
+
+
+              </div>
+              {% csrf_token %}
+            </form>
+            {% endblock %}
+
+            <footer class="ui footer">
+              <div class="ui fixed footer">
+
+              </div>
+            </footer>
+
+
+        </div>
+    </div>
+    <script src="{% static "css/load_results.css" %}"></script>
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+    </script>
+</body>
+
+</html>

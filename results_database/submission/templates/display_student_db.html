@@ -1,0 +1,122 @@
+{% extends "load_results.html" %}
+{% load plotly_dash %}
+{% load static %}
+{% block styles %}
+  <title>Edit Students</title>
+  <link rel="stylesheet" type="text/css" href="{% static "css/display_students.css" %}">
+
+{% endblock %}
+
+{% block body %}
+  <div class="ui grid">
+    <div class="row">
+      <div class=" sixteen wide column" style="margin-left:3em;">
+        <button type="button" class="ui button right floated" data-toggle="modal" data-target="#student-modal">
+          Add Student
+        </button>
+        <div class="modal fade" id="student-modal" tabindex="-1" role="dialog" aria-labelledby="student-modalTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="subject-modalTitle">Add Student</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="ui raised segment">
+                  <form class="ui form" method="post">
+                    <h4 class="ui dividing header" style="">Student Information</h4>
+                    <div class="field">
+                      <label>Name</label>
+                      <div class="fields">
+                        <div class="four wide field">
+                          {{ form.fname }}
+                        </div>
+                        <div class="four wide field">
+                          {{ form.lname }}
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div class="fieldWrapper">
+                          <label>{{ form.adm.label }}</label>
+                          <div class="fields">
+                            <div class="twelve wide field">
+                              {{ form.adm }}
+                            </div>
+                          </div>
+                          {{ form.adm.errors }}
+
+                          {% if form.adm.help_text %}
+                          <p class="help">{{ form.adm.help_text|safe }}</p>
+                          {% endif %}
+                        </div>
+                      </div>
+                      <div class="field">
+                        <div class="fieldWrapper">
+                          <label>{{ form.kcpe.label }}</label>
+                          <div class="fields">
+                            <div class="twelve wide field">
+                              {{ form.kcpe }}
+                            </div>
+                          </div>
+                          {{ form.kcpe.errors }}
+
+                          {% if form.kcpe.help_text %}
+                          <p class="help">{{ form.kcpe.help_text|safe }}</p>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                    <h4 class="ui dividing header">Contact Information</h4>
+                    <div class="field">
+                      <div class="fieldWrapper">
+                        <label>{{ form.contact.label }}</label>
+                        <div class="fields">
+                          <div class="twelve wide field">
+                            {{ form.contact }}
+                          </div>
+                        </div>
+                        {{ form.contact.errors }}
+
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                      </div>
+
+                    </div>
+                    <div class="field">
+                      <div class="fieldWrapper">
+                        <label>{{ form.email.label }}</label>
+                        <div class="fields">
+                          <div class="twelve wide field">
+                            {{ form.email }}
+                          </div>
+                        </div>
+                        {{ form.email.errors }}
+
+                        {% if form.email.help_text %}
+                        <p class="help">{{ form.email.help_text|safe }}</p>
+                        {% endif %}
+                      </div>
+
+                    </div>
+                    <button class="ui button" tabindex="0">Submit</button>
+                    {% csrf_token %}
+                  </form>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ui segment" id="selection-drop" style="margin-top:4em;">
+          {% plotly_app name="students_db" ratio=0.57%}
+        </div>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}

@@ -1,0 +1,222 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static "semantic/semantic/semantic.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "semantic/semantic/semantic.min.js" %}">
+
+    <title></title>
+  </head>
+  <body>
+    <div class="ui dropdown" id="select">
+      <input type="hidden" name="gender">
+      <i class="dropdown icon"></i>
+      <div class="default text">Gender</div>
+      <div class="menu">
+        <div class="item" data-value="male">Male</div>
+        <div class="item" data-value="female">Female</div>
+      </div>
+    </div>
+
+
+    <script type="text/javascript">
+      $('#select')
+        .dropdown()
+      ;
+    </script>
+
+  </body>
+
+</html>
+
+<div class="ui basic segment">
+
+
+  <div class="ui grid" id="stats-holder">
+    <div class="row">
+      <div class="two wide column"></div>
+      <div class="twelve wide column">
+        <div class="ui fixed card" id="stats">
+          <div class="content">
+            <div class="ui grid">
+              <div class="row">
+                <div class="five wide column">
+                  <h5>Form</h5>
+                  <div class="ui simple selection dropdown" id="selection-drop">
+                    <input type="hidden" name="user">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Select Form</div>
+                    <div class="menu">
+                      <div class="item" data-value="form1">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        Form 1
+                      </div>
+                      <div class="item" data-value="form2">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        Form 2
+                      </div>
+                      <div class="item" data-value="form3">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        Form 3
+                      </div>
+                      <div class="item" data-value="form4">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        Form 4
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="five wide column">
+                  <h5>Stream</h5>
+                  <div class="ui simple selection dropdown" id="selection-drop">
+                    <input type="hidden" name="user">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Select Stream</div>
+                    <div class="menu">
+                      <div class="item" data-value="form1">
+                        <i class="fas fa-chalkboard"></i>
+                        North
+                      </div>
+                      <div class="item" data-value="form2">
+                        <i class="fas fa-chalkboard"></i>
+                        South
+                      </div>
+                      <div class="item" data-value="form3">
+                        <i class="fas fa-chalkboard"></i>
+                        East
+                      </div>
+                      <div class="item" data-value="form4">
+                        <i class="fas fa-chalkboard"></i>
+                        West
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="five wide column" >
+                  <h5>Exam</h5>
+                  <div class="ui input focus" id="selection-drop">
+                    <input type="text" placeholder="Exam Name">
+                  </div>
+                </div>
+                <div class="four wide column">
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="two wide column"></div>
+  </div>
+
+  <div class="ui grid">
+    <div class="row">
+      <div class="two wide column">
+
+      </div>
+      <div class="twelve wide column">
+        <div class="ui card" id="selection-dropy">
+          {% plotly_app name="submission_table" ratio=0.57%}
+        </div>
+      </div>
+      <div class="two wide column">
+
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="ui grid">
+  <div class="row">
+
+    <div class="two wide column">
+      <p style="" >Form 1</p>
+    </div>
+    <div class="thirteen wide column">
+      <div class="ui list collapse list-unstyled" id="streams">
+          <div class="item stream" style="margin-top:2em;margin-bottom:2em;">
+              <a href="#">North</a>
+          </div>
+          <div class="item stream">
+              <a href="#">South</a>
+          </div >
+          <div class="item stream">
+              <a href="#">East</a>
+          </div>
+          <div class="item stream">
+              <a href="#">West</a>
+          </div>
+      </div>
+    </div>
+    <div class="right floated one wide column">
+      <i class="fas fa-plus-circle float-right fa-2x" style=""></i>
+    </div>
+  </div>
+
+</div>
+
+<div class="ui inverted fixed tiny menu" id="navbar">
+  <div class="logo item">
+    <h4 class="text-center logo-text">Logo</h4>
+  </div>
+
+  <div class="right menu">
+
+    <div class="ui dropdown item">
+      <i class="fas fa-user-circle user-icon"></i>
+      User <i class="dropdown icon"></i>
+      <div class="menu">
+        <a class="item">Profile</a>
+        <a class="item">Settings</a>
+        <a class="item">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+dash_table.DataTable(
+            id="students_db",
+            columns=(
+                [{'name' : 'Number', 'id':'Number'}] + [{'name' : 'Student Name', 'id':'Student Name', 'type':'text'}] +
+                [{'name': sub, 'id': sub, 'type':'numeric'} for sub in headers]
+            ),
+
+            data=[dict(Model=i, **{sub: "Null" for sub in headers}) for i in range(1, 50)],
+            style_data={'whitespace':'normal'},
+            style_table={
+                'maxHeight':'600px',
+                'overflowY': 'scroll',
+                'max_rows_in_viewport':40,
+            },
+            style_cell={
+                    'whiteSpace': 'normal'
+            },
+            style_cell_conditional=[
+                            {'if': {'column_id': 'Student Name'},
+                             'width': '150px'},
+                            {'if': {'row_index': 'odd'},
+                                'backgroundColor': 'rgb(248, 248, 248)'},],
+            style_header={
+                'backgroundColor': 'rgb(224, 230, 255)',
+                'fontWeight': 'bold',
+                'color':'rgb(4, 57, 201)',
+            },
+            style_as_list_view=True,
+            editable= True,
+            row_selectable='single',
+            row_deletable=True,
+            selected_rows=[],
+
+        )

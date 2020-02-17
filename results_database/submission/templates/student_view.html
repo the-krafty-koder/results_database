@@ -1,0 +1,81 @@
+{% extends "load_results.html" %}
+{% load plotly_dash %}
+{% load static %}
+{% block styles %}
+  <title>Student View</title>
+  <link rel="stylesheet" type="text/css" href="{% static "css/student_view.css" %}">
+
+{% endblock %}
+{% block body %}
+  <div class="container">
+    <div class="ui grid">
+      <div class="row">
+          <div class="left floated three wide column">
+            <div class="image" id="selection-drop">
+              <i class="fas fa-user-graduate fa-8x"></i>
+            </div>
+          </div>
+          <div class="thirteen wide column">
+            <div class="ui grid">
+              <div class="row">
+                <div class="ui label massive" id="student_name">
+                  Student Name
+                </div>
+              </div>
+              <div class="row">
+                <div class="sixteen wide column">
+                  <div class="ui segment" id=" statistic-card selection-drop">
+                      <div class="ui four statistics">
+                        <div class="adm statistic">
+                          <div class="value">
+                            7890
+                          </div>
+                          <div class="label">
+                            Admission No.
+                          </div>
+                        </div>
+                        <div class="form statistic">
+                          <div class="value">
+                            2
+                          </div>
+                          <div class="label">
+                            Form
+                          </div>
+                        </div>
+                        <div class="class statistic">
+                          <div class="value">
+                            North
+                          </div>
+                          <div class="label">
+                            Stream
+                          </div>
+                        </div>
+                        <div class="kcpe statistic">
+                          <div class="value">
+                            345
+                          </div>
+                          <div class="label">
+                            KCPE
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+              </div>
+
+            </div>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="sixteen wide column">
+          <div class="ui card" id="display_student">
+            {% plotly_app name="display_student" ratio=0.35%}
+          </div>
+        </div>
+      </div>
+
+
+  </div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "load_results.html" %}
+{% load plotly_dash %}
+{% load static %}
+{% block styles %}
+  <title>Edit Stream</title>
+
+{% endblock %}
+
+{% block body %}
+  <div class="ui raised segment" style="margin-left:2em;">
+    <form class="ui form" method="post" >
+      <h4 class="ui dividing header"> Edit Stream</h4>
+      {% for field in stream_form %}
+        <div class="field">
+          <div class="fieldWrapper">
+            <label>{{ field.label }}</label>
+            <div class="fields">
+              <div class="twelve wide field">
+                {{ field }}
+              </div>
+            </div>
+            {{ field.errors }}
+
+            {% if field.help_text %}
+            <p class="help">{{ field.help_text|safe }}</p>
+            {% endif %}
+          </div>
+
+        </div>
+      {% endfor %}
+      <button class="ui blue button" tabindex="0">Edit</button>
+      {% csrf_token %}
+    </form>
+  </div>
+{% endblock %}

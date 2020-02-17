@@ -1,0 +1,9 @@
+.container{
+  margin-top: 3em;
+}
+#stream-stats{
+  height:100%;
+}
+#display_table{
+  margin-left: -0.5em;
+}

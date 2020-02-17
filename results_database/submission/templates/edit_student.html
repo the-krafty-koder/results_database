@@ -1,0 +1,124 @@
+
+{% load plotly_dash %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Edit Students</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/edit_students.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "bootstrap/bootstrap/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static "semantic/semantic/semantic.min.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}">
+    <!-- Scrollbar Custom CSS -->
+
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+
+  </head>
+  <body>
+    <div class="ui grid" style="margin-top:1em;">
+      <div class="row">
+        <div class="two wide column" style="margin-left:3em;">
+          <img class="ui small circular image" src="{% static "images/student.png" %}" style="border:solid 5px #7386D5;">
+        </div>
+        <div class="four wide column">
+          <div class="ui" id="student_name" style="padding-top:1em;">
+            <p><h1>{{ student.student_name }}</h1></p>
+            <p><h3>{{ form_name }} {{ stream }}</h3></p>
+          </div>
+        </div>
+        <div class="four wide column right floated">
+
+        </div>
+
+
+
+      </div>
+      <div class="ui raised blue segment" id="selection-drop" style="width:90%;margin-left:3em;">
+        <form class="ui form" method="post">
+          <h4 class="ui dividing header" style="">Student Information</h4>
+          <div class="field">
+            <label>Name</label>
+            <div class="fields">
+              <div class="four wide field">
+                {{ form.fname }}
+              </div>
+              <div class="four wide field">
+                {{ form.lname }}
+              </div>
+            </div>
+            <div class="field">
+              <div class="fieldWrapper">
+                <label>{{ form.adm.label }}</label>
+                <div class="fields">
+                  <div class="twelve wide field">
+                    {{ form.adm }}
+                  </div>
+                </div>
+                {{ form.adm.errors }}
+
+                {% if form.adm.help_text %}
+                <p class="help">{{ form.adm.help_text|safe }}</p>
+                {% endif %}
+              </div>
+            </div>
+            <div class="field">
+              <div class="fieldWrapper">
+                <label>{{ form.kcpe.label }}</label>
+                <div class="fields">
+                  <div class="twelve wide field">
+                    {{ form.kcpe }}
+                  </div>
+                </div>
+                {{ form.kcpe.errors }}
+
+                {% if form.kcpe.help_text %}
+                <p class="help">{{ form.kcpe.help_text|safe }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <h4 class="ui dividing header">Contact Information</h4>
+          <div class="field">
+            <div class="fieldWrapper">
+              <label>{{ form.contact.label }}</label>
+              <div class="fields">
+                <div class="twelve wide field">
+                  {{ form.contact }}
+                </div>
+              </div>
+              {{ form.contact.errors }}
+
+              {% if field.help_text %}
+              <p class="help">{{ field.help_text|safe }}</p>
+              {% endif %}
+            </div>
+          </div>
+          <div class="field">
+            <div class="fieldWrapper">
+              <label>{{ form.email.label }}</label>
+              <div class="fields">
+                <div class="twelve wide field">
+                  {{ form.email }}
+                </div>
+              </div>
+              {{ form.email.errors }}
+
+              {% if form.email.help_text %}
+              <p class="help">{{ form.email.help_text|safe }}</p>
+              {% endif %}
+            </div>
+          </div>
+          <button class="ui button" tabindex="0">Submit</button>
+          {% csrf_token %}
+        </form>
+      </div>
+    </div>
+
+  </body>
+</html>
